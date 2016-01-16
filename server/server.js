@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/../client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var contentProvider = new model.contentProvider;
+var contentProvider = model.contentProvider;
 
 /* API */
 app.get('/api/content', function(req, res){
@@ -31,7 +31,7 @@ app.get('/api/content', function(req, res){
       res.json(result);
     }  
   });
-}
+});
 
 /* Router */
 app.get('/', function(req, res){
