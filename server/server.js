@@ -37,7 +37,9 @@ app.get('/api/content', function(req, res){
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
-
+app.get('/demo', function(req, res){
+  //Create fake content for demoing purposes
+});
 /* Application */
 http.listen(port, function(){
   console.log('listening on localhost:' + port);

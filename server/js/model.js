@@ -10,8 +10,8 @@ var Schema = mongoose.Schema
 /* Schemas */
 var contentSchema = new Schema({
   title : String,
-  start: String, //Figure out type
-  end: String,
+  start: Date,
+  end: Date,
   networks : [String],
   streams : [String],
   hashtags : [String],
@@ -24,9 +24,13 @@ var ContentProvider = function(){};
 
 ContentProvider.prototype.createContent = function(params, cb) {
   var content  = new Content({
-    username : username,
-    position : position,
-    color    : color
+    title    : params['title'],
+    start    : params['start'],
+    end      : params['end'],
+    networks : params['networks'],
+    streams  : params['streams'],
+    hashtags : params['hashtags'],
+    image    : params['image']
   });
   
   content.save(function(err){
@@ -61,3 +65,8 @@ ContentProvider.prototype.purgeContent = function(cb) {
 };
 
 exports.ContentProvider = ContentProvider;
+
+/* Helper Functions */
+function handleError(err){
+	//Take errors and return human readable messages
+}
