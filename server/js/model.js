@@ -33,13 +33,14 @@ ContentProvider.prototype.createContent = function(params, cb) {
     image    : params['image']
   });
   
+  console.log('Attempting save');
+  
   content.save(function(err){
-    console.log(err);
     cb(err);
   });
 };
 
-ContentProvider.prototype.getCurrentContent = function(datetime, cb) {
+ContentProvider.prototype.getContent = function(datetime, cb) {
   //find content where end > now > start
   Content.find({}).exec(function(err, currentContent) {
 		if(err){
@@ -61,6 +62,8 @@ ContentProvider.prototype.getCurrentContent = function(datetime, cb) {
 };
 
 ContentProvider.prototype.purgeContent = function(cb) {
+	console.log("Purging content");
+	cb(err);
 	//delete things that have ended 12 hours ago
 };
 
