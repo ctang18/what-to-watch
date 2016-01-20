@@ -19,7 +19,7 @@ var contentProvider = new model.ContentProvider;
 
 /* API */
 app.get('/api/content', function(req, res){
-  contentProvider.getContent(Date.now(), function(err, currentContent, upcomingContent, missingContent) {
+  contentProvider.getContent(Date.now(), function(err, currentContent, upcomingContent, missedContent) {
     if(err){
       res.json({success: false});
     } else {
@@ -27,7 +27,7 @@ app.get('/api/content', function(req, res){
         success         : true, 
         currentContent  : currentContent,
         upcomingContent : upcomingContent, 
-        missingContent  : missingContent
+        missedContent  : missedContent
       };
       res.json(result);
     }  

@@ -10,7 +10,9 @@ function getContent(){
         //Display content
         console.log("GET request success");
         console.log(result);
-        renderCurrent(result.currentContent);
+        $('#currentContent').html(renderCurrent(result.currentContent));
+        $('#upcomingContent').html(renderCurrent(result.upcomingContent));
+        $('#missedContent').html(renderCurrent(result.missedContent));
       } else {
         console.log("GET request failed");
       }
@@ -31,5 +33,7 @@ function renderCurrent(contents){
 		contentHTML += '</div>';
 		contentHTML += '<div class="perma-image-screen"></div><img class="content-image" src="' +contents[i].image + '"></div>';
   }
-  $('#currentContent').html(contentHTML);
+  
+  return contentHTML;
+  //$('#currentContent').html(contentHTML);
 }
