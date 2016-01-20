@@ -63,7 +63,6 @@ ContentProvider.prototype.getContent = function(datetime, cb) {
 
 ContentProvider.prototype.purgeContent = function(cb) {
 	console.log("Purging content");
-	cb(err);
 	//delete things that have ended 12 hours ago
 };
 

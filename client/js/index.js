@@ -1,5 +1,4 @@
 $(document).ready(function() { 
-  console.log("Document Ready");
   getContent();
 });
 
@@ -7,9 +6,6 @@ function getContent(){
   $.get('api/content')
     .done(function (result) {
       if(result.success){
-        //Display content
-        console.log("GET request success");
-        console.log(result);
         $('#currentContent').html(renderCurrent(result.currentContent));
         $('#upcomingContent').html(renderCurrent(result.upcomingContent));
         $('#missedContent').html(renderCurrent(result.missedContent));
@@ -26,14 +22,22 @@ function renderCurrent(contents){
   var contentHTML = '';
   
   for(i = 0; i < contents.length; i++){
-    contentHTML += '<div class="content"><div class="content-iota content-link with-thumb">';
-    contentHTML += '<div class="content-link-title">' + contents[i].title + '</div><br />';
-    contentHTML += '<div class="content-subtitle">' + contents[i].networks[0] + '</div>';
-		contentHTML += '<div class="content-hashtag">' + contents[i].hashtags[0] + '</div>';
+    contentHTML += '<div class="content">'
+    contentHTML += '<div class="content-info">';
+    contentHTML += '<div class="content-title">' + contents[i].title + '</div><br />';
+    contents[i].networks.forEach(function(network) {
+      contentHTML += '<div class="content-network">' + network + '</div>';
+    });
+    contents[i].streams.forEach(function(stream) {
+      contentHTML += '<div class="content-stream">' + stream + '</div>';
+    });
+    contents[i].hashtags.forEach(function(hashtag) {
+      contentHTML += '<div class="content-hashtag">' + hashtag + '</div>';
+    });
 		contentHTML += '</div>';
-		contentHTML += '<div class="perma-image-screen"></div><img class="content-image" src="' +contents[i].image + '"></div>';
+		contentHTML += '<div class="perma-image-screen"></div><img class="content-image" src="' +contents[i].image + '">'
+    contentHTML += '</div>';
   }
   
   return contentHTML;
-  //$('#currentContent').html(contentHTML);
 }
