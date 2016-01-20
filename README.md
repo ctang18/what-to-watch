@@ -1,4 +1,4 @@
-Generic Node.JS server that implments express, socket.io, and MongoDB. Complete with both client-side and server-side validation and JSON token authorization.
+Web application that takes trending television shows and events from Twitter and displays them conveniently with where to watch details.
 
 ## Installation
 ```
@@ -11,4 +11,4 @@ Configure /server/config.json to your liking.
 npm start
 ```
 
-The client will then be accessible at `http://localhost:3000`.
+The client will then be accessible at `http://localhost:3001`.
