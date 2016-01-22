@@ -25,6 +25,7 @@ function renderCurrent(contents){
     contentHTML += '<div class="content">'
     contentHTML += '<div class="content-info">';
     contentHTML += '<div class="content-title">' + contents[i].title + '</div><br />';
+    contentHTML += '<div class="content-time">' + dt(contents[i].start) + ' - ' + dt(contents[i].end) + '</div>';
     contents[i].networks.forEach(function(network) {
       contentHTML += '<div class="content-network">' + network + '</div>';
     });
@@ -40,4 +41,10 @@ function renderCurrent(contents){
   }
   
   return contentHTML;
+}
+
+/* Convert Date into Human Readable Format */
+function dt(string){
+  var date = new Date(string);
+  return date;
 }

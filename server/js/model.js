@@ -33,27 +33,23 @@ ContentProvider.prototype.createContent = function(params, cb) {
     image    : params['image']
   });
   
-  console.log('Attempting save');
-  
   content.save(function(err){
-    cb(err);
+    return cb(err);
   });
 };
 
 ContentProvider.prototype.getContent = function(datetime, cb) {
   //find content where end > now > start
-  Content.find({}).exec(function(err, currentContent) {
-		if(err){
-			cb(err);
-		} else {
+  Content.find({ '$and': [{ end: { '$gt': datetime } },{ start: { '$lt': datetime } } ] }).exec(function(err, currentContent) {
+		if(err) return cb(err)
+    else {
 			//find content where start > now  
-			Content.find({}).exec(function(err, upcomingContent) {
-				if(err){
-					cb(err);
-				} else {
+			Content.find({ start: { '$gt': datetime }}).exec(function(err, upcomingContent) {
+				if(err) return cb(err)
+        else {
 					//find content where now > end 
-					Content.find({}).exec(function(err, missedContent) {
-						cb(err, currentContent, upcomingContent, missedContent);
+					Content.find({ end: { '$lt': datetime } }).exec(function(err, missedContent) {
+						return cb(err, currentContent, upcomingContent, missedContent);
 					});
 				}
 			});
@@ -64,6 +60,9 @@ ContentProvider.prototype.getContent = function(datetime, cb) {
 ContentProvider.prototype.purgeContent = function(cb) {
 	console.log("Purging content");
 	//delete things that have ended 12 hours ago
+  /*Content.remove({ }, function(err){
+    if (err) return handleError(err);
+  });*/
 };
 
 exports.ContentProvider = ContentProvider;
@@ -71,4 +70,5 @@ exports.ContentProvider = ContentProvider;
 /* Helper Functions */
 function handleError(err){
 	//Take errors and return human readable messages
+  return err;
 }
