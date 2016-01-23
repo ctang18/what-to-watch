@@ -8,7 +8,8 @@ var model = require('./js/model.js');
 var c = require('./config.json');
 
 var port = process.env.PORT || c.port;
-var purgeInterval = 5 * 60 * 1000;
+var findInterval = 30 * 60 * 1000;
+var purgeInterval = 30 * 60 * 1000;
 
 /* Configuration */
 app.use(express.static(__dirname + '/../client'));
@@ -40,10 +41,14 @@ app.get('/', function(req, res){
 });
 app.get('/demo', function(req, res){
   //Create fake content for demoing purposes
+  var startDate = new Date(Date.now());
+  var endDate = new Date(Date.now());
+  //startDate.setHours(startDate.getHours() + 2);
+  endDate.setHours(endDate.getHours() + 1);
   var content = {
     title    : "Steelers @ Broncos",
-    start    : Date.now(),
-    end      : Date.now(),
+    start    : startDate,
+    end      : endDate,
     networks : ["CBS"],
     streams  : [],
     hashtags : ["#PITatDEN", "#Broncos", "#Steelers"],
@@ -58,15 +63,23 @@ app.get('/demo', function(req, res){
     }
   });
 });
-
-setInterval(purgeContent, purgeInterval);
+app.get('*', function(req, res){
+  res.redirect('/')
+});
 
 /* Application */
+setInterval(findContent, findInterval);
+setInterval(purgeContent, purgeInterval);
+
 http.listen(port, function(){
   console.log('listening on localhost:' + port);
 });
 
 /* Helper Functions */
+function findContent(){
+  
+}
+
 function purgeContent(){
   contentProvider.purgeContent(function(err) {
       if(err)

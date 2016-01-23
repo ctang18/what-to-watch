@@ -46,5 +46,5 @@ function renderCurrent(contents){
 /* Convert Date into Human Readable Format */
 function dt(string){
   var date = new Date(string);
-  return date;
+  return date.toLocaleTimeString();
 }
