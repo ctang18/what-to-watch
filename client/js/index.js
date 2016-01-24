@@ -2,6 +2,7 @@ $(document).ready(function() {
   getContent();
 });
 
+// Get current, upcoming, and missed content
 function getContent(){
   $.get('api/content')
     .done(function (result) {
@@ -18,6 +19,7 @@ function getContent(){
     });
 }
 
+// Generate HTML for each content found
 function renderCurrent(contents){
   var contentHTML = '';
   
@@ -43,7 +45,7 @@ function renderCurrent(contents){
   return contentHTML;
 }
 
-/* Convert Date into Human Readable Format */
+// Convert given datetime to human readable message
 function dt(string){
   var date = new Date(string);
   return date.toLocaleTimeString();

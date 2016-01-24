@@ -9,7 +9,7 @@ var c = require('./config.json');
 
 var port = process.env.PORT || c.port;
 var findInterval = 30 * 60 * 1000;
-var purgeInterval = 30 * 60 * 1000;
+var purgeInterval = (1 * 3 * 1000);
 
 /* Configuration */
 app.use(express.static(__dirname + '/../client'));
@@ -39,8 +39,10 @@ app.get('/api/content', function(req, res){
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
+
+//Create fake content for demoing purposes
+//TODO - to be removed
 app.get('/demo', function(req, res){
-  //Create fake content for demoing purposes
   var startDate = new Date(Date.now());
   var endDate = new Date(Date.now());
   //startDate.setHours(startDate.getHours() + 2);
@@ -63,12 +65,13 @@ app.get('/demo', function(req, res){
     }
   });
 });
+
 app.get('*', function(req, res){
   res.redirect('/')
 });
 
 /* Application */
-setInterval(findContent, findInterval);
+//setInterval(findContent, findInterval);
 setInterval(purgeContent, purgeInterval);
 
 http.listen(port, function(){
@@ -76,13 +79,13 @@ http.listen(port, function(){
 });
 
 /* Helper Functions */
+
+// Find new content
 function findContent(){
   
 }
 
+// Purge old content
 function purgeContent(){
-  contentProvider.purgeContent(function(err) {
-      if(err)
-        console.log(err)
-  });
+  contentProvider.purgeContent(function(err) {});
 }
