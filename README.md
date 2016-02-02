@@ -6,6 +6,9 @@ The idea was to search trending hashtags on Google News and from there determine
 ## Issues
 However the issue with content generation is that shows may not always be trending on Twitter, so often times there will be a lack of content available, such as the middle of a weekday or late at night.
 
+## Solution
+I think a possible solution would be to check external television API's and to create content based on current, upcoming, and missed live or new shows.
+
 ## Installation
 ```
 npm install
